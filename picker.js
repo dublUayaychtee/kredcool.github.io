@@ -1,14 +1,14 @@
 const wordSets = [
-  ["Ancestral", "Hot Dog", "Minotaur"],
-  ["Eldrazi", "Guacamole", "Tightrope"],
-  ["Misunderstood", "Trapeze", "Elf"],
-  ["Narrow-Minded", "Baloney", "Fireworks"],
-  ["Phyrexian", "Midway", "Bamaboozle"],
-  ["Playable", "Delusionary", "Hydra"],
-  ["Trained", "Blessed", "Mind"],
-  ["Unassuming", "Gelationous", "Serpent"],
-  ["Unglued", "pea-brained", "dinosaur"],
-  ["unsanctioned", "ancient", "juggler"],
+  ["Ancestral ", "Hot Dog ", "Minotaur"],
+  ["Eldrazi ", "Guacamole ", "Tightrope"],
+  ["Misunderstood ", "Trapeze ", "Elf"],
+  ["Narrow-Minded ", "Baloney ", "Fireworks"],
+  ["Phyrexian ", "Midway ", "Bamaboozle"],
+  ["Playable ", "Delusionary ", "Hydra"],
+  ["Trained ", "Blessed ", "Mind"],
+  ["Unassuming ", "Gelationous ", "Serpent"],
+  ["Unglued ", "pea-brained ", "dinosaur"],
+  ["unsanctioned ", "ancient ", "juggler"],
 ];
 let chosen = [];
 
@@ -43,7 +43,7 @@ function checkSet() {
 
   chosen.forEach((set) => {
     set.forEach((word) => {
-      stickers = stickers + word + " ";
+      stickers = stickers + word;
     });
     stickers = stickers + ", ";
   });
@@ -51,7 +51,7 @@ function checkSet() {
   // display stickers chosen and biggest
   document.getElementById("words").textContent = "Chosen stickers: " + stickers;
   document.getElementById("result").textContent =
-    "Word with most vowels: " + maxWord + " (" + maxCount + ")";
+    "Name with most vowels: " + maxWord + " (" + maxCount + ")";
 
   // clear chosen
   chosen = [];
