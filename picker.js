@@ -10,49 +10,48 @@ const wordSets = [
   ["Unglued ", "pea-brained ", "dinosaur"],
   ["unsanctioned ", "ancient ", "juggler"],
 ];
-let chosen = [];
+
+function countVowels(s) {
+  const vowelRegex = /([aeiouy])(?!.*\1)/gi;
+  const matches = s.match(vowelRegex);
+  return matches ? matches.length : 0;
+}
 
 function checkSet() {
   // set up temp sets
   let tempSet = [...wordSets]; //create a shallow ref meaning no overwrite
-
   // add 3 sets randomly to chosen
-  for (let i = 0; i < 3; i++) {
-    const randIndex = Math.floor(Math.random() * tempSet.length);
-    chosen.push(tempSet[randIndex]);
-    tempSet.splice(randIndex, 1);
-  }
-
-  const vowelRegex = /([aeiouy])(?!.*\1)/gi;
-  let maxWord = "";
-  let maxCount = -1;
-
-  chosen.forEach((set) => {
-    set.forEach((word) => {
-      const matches = word.match(vowelRegex);
-      const count = matches ? matches.length : 0;
-      if (count > maxCount) {
-        maxCount = count;
-        maxWord = word;
-      }
-    });
-  });
-
-  // set up display for stickers chosen
-  let stickers = "";
-
-  chosen.forEach((set) => {
-    set.forEach((word) => {
-      stickers = stickers + word;
-    });
-    stickers = stickers + ", ";
-  });
+  let chosen = Array.from({length:3}, () => tempSet.splice(Math.floor(Math.random() * tempSet.length), 1)[0])
+                    .sort((a,b) => Math.max(...b.map(s => countVowels(s))) - Math.max(...a.map(s => countVowels(s))));
+  let maxWord = chosen[0].toSorted((a,b) => countVowels(b)-countVowels(a))[0];
+  let maxCount = countVowels(maxWord);
+  //document.getElementById("words").textContent = "Chosen stickers: " + chosen.map(x => x.join(' ')).join(', ');
+  //document.getElementById("result").textContent = "Word with most vowels: " + maxWord + ' (' + countVowels(maxWord) + ')';
 
   // display stickers chosen and biggest
-  document.getElementById("words").textContent = "Chosen stickers: " + stickers;
-  document.getElementById("result").textContent =
-    "Name with most vowels: " + maxWord + " (" + maxCount + ")";
-
-  // clear chosen
-  chosen = [];
+  const results = document.getElementById("results");
+  results.innerHTML = '';
+  chosen.forEach(set => {
+    let card = document.createElement('div');
+    card.classList.add("card");
+    set.forEach(part => {
+      let word = document.createElement('div');
+      let number = document.createElement('div');
+      number.classList.add("number");
+      if (countVowels(part) == maxCount) word.classList.add("max");
+      number.textContent = countVowels(part);
+      word.appendChild(number);
+      let text = document.createElement('div');
+      text.classList.add("text");
+      Array.from(part).forEach(letter => {
+        let char = document.createElement('span');
+        char.textContent = letter;
+        if (countVowels(letter)) char.classList.add(letter.toLowerCase());
+        text.appendChild(char);
+      });
+      word.appendChild(text);
+      card.appendChild(word);
+    });
+    results.appendChild(card);
+  })
 }

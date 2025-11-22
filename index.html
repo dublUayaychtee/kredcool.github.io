@@ -7,13 +7,17 @@
       content="width=device-width, initial-scale=1"
     />
     <title>Etali ____ Goblin mana generator</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h2>Etali ____ Goblin mana generator</h2>
-    <button onclick="checkSet()">Generate name</button>
+    <div class="header">
+      <div class="title">Etali ____ Goblin mana generator</div>
+      <div class="btn" onclick="checkSet()">Generate name</div>
+    </div>
 
-    <p id="words"></p>
-    <p id="result"></p>
+    <div id="results">
+      <div class="card">Push 'Check Set' button</div>
+    </div>
 
     <!-- Link to external JavaScript file -->
     <script src="picker.js"></script>
